@@ -8,9 +8,6 @@ const { DATABASE, PORT } = require('./utils/constants');
 
 const app = express();
 
-// const { createUser, login } = require('./controllers/users');
-// const { auth } = require('./middlewares/auth');
-// const { loginValidation, userValidation } = require('./middlewares/requestValidation');
 const handelErrors = require('./middlewares/handelErrors');
 const indexRouter = require('./routes/index');
 const cors = require('./middlewares/cors');
@@ -23,15 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(cors);
 app.use(limiter);
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(errors());
-// app.post('/signin', loginValidation, login);
-// app.post('/signup', userValidation, createUser);
-// app.use(auth);
 app.use(indexRouter);
 app.use(errorLogger);
 
