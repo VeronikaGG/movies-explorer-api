@@ -1,9 +1,11 @@
-const handelErrors = ((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
+const handelErrors = (err, req, res, next) => {
+  const { message } = err;
+  const statusCode = err.statusCode || 500;
+
   res.status(statusCode).send({
-    message:
-      statusCode === 500 ? 'Ошибка сервера' : message,
+    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
   });
-  next();
-});
+  return next();
+};
+
 module.exports = handelErrors;
