@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-// const { errors } = require('celebrate');
+const { errors } = require('celebrate');
 const helmet = require('helmet');
 const { DATABASE, PORT } = require('./utils/constants');
 
@@ -25,7 +25,7 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-// app.use(errors());
+app.use(errors());
 app.use(indexRouter);
 app.use(errorLogger);
 
