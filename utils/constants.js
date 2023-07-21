@@ -6,12 +6,13 @@ const ERROR_CODE = 500;
 const UNAUTHORIZED_ERROR = 401;
 const FORBIDDEN_ERROR = 403;
 const CONFLICT_ERROR = 409;
-const RegExp = {
-  URL: /http(s)?:\/\/(w{3}.)?[a-z0-9.-]+\/[a-z0-9.\-_~:/?#[\]@!$&'()*+,;=]?#?/i
-};
+
+const RegExp = /(http|https):\/\/(\w+:{0,1}\w*#)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&amp;%#!\-/]))?/;
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 const { PORT = 3000 } = process.env;
 const DATABASE = process.env.DATABASE || 'mongodb://127.0.0.1:27017/bitfilmsdb';
+
 module.exports = {
   OK_CODE,
   CREATE_CODE,
