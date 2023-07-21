@@ -5,6 +5,7 @@ const allowedCors = [
   'localhost:3000',
   'https://api.veronikagg-diploma.nomoredomains.rocks',
   'http://api.veronikagg-diploma.nomoredomains.rocks',
+  'https://veronikagg-diploma.nomoredomains.rocks',
   'http://veronikagg-diploma.nomoredomains.rocks',
   '//veronikagg-diploma.nomoredomains.rocks',
 ];
