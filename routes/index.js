@@ -12,8 +12,8 @@ router.use('/movies', auth, moviesRouter);
 
 router.post('/signup', userValidation, createUser);
 router.post('/signin', loginValidation, login);
+
 router.use('*', (req, res, next) => {
   next(new NotFoundError(NOT_FOUND_ERROR_MESSAGE));
 });
-
 module.exports = router;

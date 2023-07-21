@@ -4,65 +4,57 @@ const validator = require('validator');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
+    required: [true, 'Поле "country" должно быть заполнено'],
   },
   director: {
     type: String,
-    required: true,
+    required: [true, 'Поле "director" должно быть заполнено'],
   },
   duration: {
     type: Number,
-    required: true,
+    required: [true, 'Поле "duration" должно быть заполнено'],
   },
   year: {
     type: String,
-    required: true,
+    required: [true, 'Поле "year" должно быть заполнено'],
   },
   description: {
     type: String,
-    required: true,
+    required: [true, 'Поле "description" должно быть заполнено'],
   },
   image: {
     type: String,
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка на изображение',
-    },
-    required: true,
+    required: [true, 'Поле "image" должно быть заполнено'],
+    validate: validator.isURL,
   },
   trailerLink: {
     type: String,
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка на видео',
-    },
-    required: true,
+    required: [true, 'Поле "trailerLink" должно быть заполнено'],
+    validate: validator.isURL,
   },
   thumbnail: {
     type: String,
-    validate: {
-      validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка на изображение',
-    },
-    required: true,
+    required: [true, 'Поле "thumbnail" должно быть заполнено'],
+    validate: validator.isURL,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
     required: true,
+    ref: 'user',
   },
   movieId: {
     type: Number,
-    required: true,
+    required: [true, 'Поле "movieId" должно быть заполнено'],
   },
   nameRU: {
     type: String,
-    required: true,
+    required: [true, 'Поле "nameRU" должно быть заполнено'],
   },
   nameEN: {
     type: String,
-    required: true,
+    required: [true, 'Поле "nameEN" должно быть заполнено'],
   },
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('movie', movieSchema);
+

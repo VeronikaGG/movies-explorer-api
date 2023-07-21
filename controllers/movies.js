@@ -29,11 +29,12 @@ const createMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    thumbnail,
-    movieId,
     nameRU,
     nameEN,
+    thumbnail,
+    movieId,
   } = req.body;
+
   Movie.create({
     country,
     director,
@@ -42,16 +43,13 @@ const createMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    thumbnail,
-    movieId,
     nameRU,
     nameEN,
+    thumbnail,
+    movieId,
     owner: req.user._id,
   })
-    .then((movie) => movie.populate('owner'))
-    .then((movie) => {
-      res.status(OK_CODE).send(movie);
-    })
+    .then((newMovie) => res.status(OK_CODE).send(newMovie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(INCORRECT_DATA_MESSAGE));

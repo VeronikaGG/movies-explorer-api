@@ -32,7 +32,7 @@ app.use(errorLogger);
 app.use(handelErrors);
 
 mongoose.connect(DATABASE);
+
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
   console.log(`The server is running on ${PORT}`);
 });
