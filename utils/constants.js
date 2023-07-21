@@ -6,7 +6,9 @@ const ERROR_CODE = 500;
 const UNAUTHORIZED_ERROR = 401;
 const FORBIDDEN_ERROR = 403;
 const CONFLICT_ERROR = 409;
-const RegExp = /https?:\/\/(www\.)?([a-zA-Z0-9-._~:/?#@!$&'()+,;=]*)\.([a-zA-Z])#?/;
+const RegExp = {
+  URL: /http(s)?:\/\/(w{3}.)?[a-z0-9.-]+\/[a-z0-9.\-_~:/?#[\]@!$&'()*+,;=]?#?/i
+};
 const { NODE_ENV, JWT_SECRET } = process.env;
 const { PORT = 3000 } = process.env;
 const DATABASE = process.env.DATABASE || 'mongodb://127.0.0.1:27017/bitfilmsdb';
