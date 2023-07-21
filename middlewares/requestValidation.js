@@ -1,6 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-// const { RegExp } = require('../utils/constants');
-const validator = require('validator');
+const { RegExp } = require('../utils/constants');
 
 const userValidation = celebrate({
   body: Joi.object().keys({
@@ -23,6 +22,7 @@ const loginValidation = celebrate({
     password: Joi.string().required(),
   }),
 });
+
 const movieValidation = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
@@ -30,44 +30,14 @@ const movieValidation = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().custom((value, helpers) => {
-      if (!validator.isURL(value)) {
-        return helpers.message('Invalid URL format');
-      }
-      return value;
-    }),
-    trailerLink: Joi.string().required().custom((value, helpers) => {
-      if (!validator.isURL(value)) {
-        return helpers.message('Invalid URL format');
-      }
-      return value;
-    }),
-    thumbnail: Joi.string().required().custom((value, helpers) => {
-      if (!validator.isURL(value)) {
-        return helpers.message('Invalid URL format');
-      }
-      return value;
-    }),
+    trailerLink: Joi.string().required().regex(RegExp.URL),
+    image: Joi.string().required().regex(RegExp.URL),
+    thumbnail: Joi.string().required().regex(RegExp.URL),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
 });
-// const movieValidation = celebrate({
-//   body: Joi.object().keys({
-//     country: Joi.string().required(),
-//     director: Joi.string().required(),
-//     duration: Joi.number().required(),
-//     year: Joi.string().required(),
-//     description: Joi.string().required(),
-//     trailerLink: Joi.string().required().regex(RegExp.URL),
-//     image: Joi.string().required().regex(RegExp.URL),
-//     thumbnail: Joi.string().required().regex(RegExp.URL),
-//     movieId: Joi.number().required(),
-//     nameRU: Joi.string().required(),
-//     nameEN: Joi.string().required(),
-//   }),
-// });
 
 const movieIdValidation = celebrate({
   params: Joi.object().keys({
