@@ -30,9 +30,9 @@ const movieValidation = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    trailerLink: Joi.string().required().pattern(RegExp.URL),
-    image: Joi.string().required(),
-    thumbnail: Joi.string().required(),
+    image: Joi.string().regex(RegExp).required(),
+    trailerLink: Joi.string().regex(RegExp).required(),
+    thumbnail: Joi.string().regex(RegExp).required(),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
@@ -41,7 +41,7 @@ const movieValidation = celebrate({
 
 const movieIdValidation = celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().required().length(24).hex(),
+    movieId: Joi.string().hex().length(24),
   }),
 });
 

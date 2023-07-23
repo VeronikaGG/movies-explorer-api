@@ -4,64 +4,64 @@ const validator = require('validator');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: [true, 'Должна быть указана страна создания фильма'],
+    required: true,
   },
   director: {
     type: String,
-    required: [true, 'Должен быть указан режиссер фильма'],
+    required: true,
   },
   duration: {
     type: Number,
-    required: [true, 'Должна быть указана продолжительность фильма'],
+    required: true,
   },
   year: {
     type: String,
-    required: [true, 'Должен быть указан год фильма'],
+    required: true,
   },
   description: {
     type: String,
-    required: [true, 'Должно быть указано описание фильма'],
+    required: true,
   },
   image: {
     type: String,
-    required: [true, 'Должна быть указана ссылка на изображение фильма'],
     validate: {
-      validator: (link) => validator.isURL(link),
-      message: 'Ошибка при передаче ссылки на постер',
+      validator: (value) => validator.isURL(value),
+      message: 'Некорректная ссылка на изображение',
     },
+    required: true,
   },
   trailerLink: {
     type: String,
-    required: [true, 'Должна быть указана ссылка на трейлер фильма'],
     validate: {
-      validator: (link) => validator.isURL(link),
-      message: 'Ошибка при передаче ссылки на трейлер',
+      validator: (value) => validator.isURL(value),
+      message: 'Некорректная ссылка на видео',
     },
+    required: true,
   },
   thumbnail: {
     type: String,
-    required: [true, 'Должна быть указана ссылка на постер фильма'],
     validate: {
-      validator: (link) => validator.isURL(link),
-      message: 'Ошибка при передаче ссылки на миниатюрное изображение постера',
+      validator: (value) => validator.isURL(value),
+      message: 'Некорректная ссылка на изображение',
     },
+    required: true,
   },
   owner: {
-    ref: 'user',
     type: mongoose.Schema.Types.ObjectId,
-    required: [true, 'Должен быть указан владелец поста с фильмом'],
+    ref: 'user',
+    required: true,
   },
   movieId: {
     type: Number,
-    required: [true, 'Должен быть указан ID фильма'],
+    required: true,
   },
   nameRU: {
     type: String,
-    required: [true, 'Должно быть указано название фильма на русском языке'],
+    required: true,
   },
   nameEN: {
     type: String,
-    required: [true, 'Должно быть указано название фильма на английском языке'],
+    required: true,
   },
 });
 
