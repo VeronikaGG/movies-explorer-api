@@ -38,7 +38,7 @@ const updateUser = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   )
     .then((user) => {
       if (!user) {
@@ -49,9 +49,7 @@ const updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(
-          new ConflictError(CONFLICT_ERROR_MESSAGE),
-        );
+        next(new ConflictError(CONFLICT_ERROR_MESSAGE));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError(INCORRECT_DATA_MESSAGE));
         return;
@@ -61,14 +59,16 @@ const updateUser = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const {
-    name, email,
-  } = req.body;
+  const { name, email } = req.body;
   bcrypt
     .hash(req.body.password, 10)
-    .then((hash) => User.create({
-      name, email, password: hash,
-    }))
+    .then((hash) =>
+      User.create({
+        name,
+        email,
+        password: hash,
+      })
+    )
     .then((newUser) => {
       res.status(OK_CODE).send({
         email: newUser.email,
@@ -77,9 +77,7 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(
-          new ConflictError(CONFLICT_ERROR_MESSAGE),
-        );
+        next(new ConflictError(CONFLICT_ERROR_MESSAGE));
       } else if (err.name === 'ValidationError') {
         next(new BadRequestError(INCORRECT_DATA_MESSAGE));
       } else {
@@ -100,9 +98,13 @@ const login = (req, res, next) => {
         if (!matched) {
           throw new AuthorizationError(INCORRECT_EMAIL_PASSWORD_MESSAGE);
         }
-        const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key', {
-          expiresIn: '7d',
-        });
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
+          {
+            expiresIn: '7d',
+          }
+        );
         res.send({ token });
       });
     })

@@ -19,8 +19,8 @@ const getMovies = (req, res, next) => {
     })
     .catch(next);
 };
-
 const createMovie = (req, res, next) => {
+  const { _id } = req.user;
   const {
     country,
     director,
@@ -34,7 +34,6 @@ const createMovie = (req, res, next) => {
     thumbnail,
     movieId,
   } = req.body;
-
   Movie.create({
     country,
     director,
@@ -47,7 +46,7 @@ const createMovie = (req, res, next) => {
     nameEN,
     thumbnail,
     movieId,
-    owner: req.user._id,
+    owner: _id,
   })
     .then((newMovie) => res.status(OK_CODE).send(newMovie))
     .catch((err) => {
@@ -73,6 +72,7 @@ const deleteMovie = (req, res, next) => {
     })
     .catch(next);
 };
+
 module.exports = {
   getMovies,
   createMovie,
